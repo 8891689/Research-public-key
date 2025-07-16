@@ -1,5 +1,7 @@
 # Research-public-key
+
 Preface
+
 Research on puzzle public keys: These are some programs used before, shared for members to use for entertainment and in-depth study. As the saying goes: As long as the ideas are clear, there are always more solutions than problems.
 The following is an introduction to the core functions of the software. Some components are still being modified and tested and will be uploaded later.
 
