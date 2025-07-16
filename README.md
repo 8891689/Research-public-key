@@ -49,8 +49,16 @@ g++ -o invert_fission invert_fission.cpp -lgmp
 g++ -o search_script search_divisible_ranged.cpp -lgmpxx -lgmp
 g++ -o extract_public extract_public.cpp -O3 -march=native
 g++ -o pkconvert pkconvert.cpp -O3 -march=native -lsecp256k1
-```
 
+or
+
+make
+
+```
+Cleaning
+```
+make clean
+```
 # displacement Instructions and Tests
 ```
 ./displacement -h
