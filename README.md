@@ -51,6 +51,7 @@ g++ -o invert_fission invert_fission.cpp -lgmp
 g++ -o search_script search_divisible_ranged.cpp -lgmpxx -lgmp
 g++ -o extract_public extract_public.cpp -O3 -march=native
 g++ -o pkconvert pkconvert.cpp -O3 -march=native -lsecp256k1
+gcc pubkey_cloning.c random.c bitrange.c sha256.c ripemd160.c base58.c -o p -pthread -march=native -lsecp256k1 -lgmp -Wall -Wextra -O3
 
 or
 
