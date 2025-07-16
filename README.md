@@ -1,8 +1,7 @@
 # Research-public-key
 Preface
-A Study on Puzzles: Software for Entertainment and Research
-This software, previously used for research, is now being shared for entertainment and study. As the saying goes: As long as your thinking doesn't slip, there are always more solutions than problems.
-Below is an introduction to the software's core functions. Some components are still being modified and tested and will be uploaded later.
+Research on puzzle public keys: These are some programs used before, shared for members to use for entertainment and in-depth study. As the saying goes: As long as the ideas are clear, there are always more solutions than problems.
+The following is an introduction to the core functions of the software. Some components are still being modified and tested and will be uploaded later.
 
 1. displacement_fission
 This function uses a "fission" method to narrow down the search range for a private key corresponding to a given public key. It leverages the linear (i.e., functional) relationship between public and private keys, progressively reducing the search space through "displacement" and "fission" (halving via division). The resulting transformed public key is then matched against known public keys in a Bloom filter. If a match is found, a result is obtained. The analogy is a wild kangaroo and a tame kangaroo colliding; based on their respective paths, we can trace back to the tame one's home, which represents the final private key.
