@@ -17,7 +17,7 @@ These are auxiliary tools:
 search_divisible_ranged: This analyzes values divisible by 2. It determines how much of the prefix is divisible, while the suffix provides a reference for parameters like the required Bloom filter size or the number of iterations.
 extract_public: This program removes the suffix from input public keys and outputs the result to a new file. It is significantly faster than using standard system commands for this task.
 pkconvert: This tool converts public keys into a uniform format. For instance, it can convert uncompressed public keys extracted from a blockchain into the compressed format, or vice versa. It supports batch operations.
-6. Why not provide it for free? Then you must ask, why is YouTube not free? There are too many ads when watching videos, and members need to pay to watch videos. Well, reserve your seat and wait for the follow-up update...
+6. I need to buy the compressed password, why not provide it for free? Because I need financial support to develop more programs, I hope everyone understands, reserves a seat, and waits for subsequent updates...
 
 # Required libraries
 
