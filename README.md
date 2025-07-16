@@ -18,7 +18,9 @@ These are auxiliary tools:
 search_divisible_ranged: This analyzes values divisible by 2. It determines how much of the prefix is divisible, while the suffix provides a reference for parameters like the required Bloom filter size or the number of iterations.
 extract_public: This program removes the suffix from input public keys and outputs the result to a new file. It is significantly faster than using standard system commands for this task.
 pkconvert: This tool converts public keys into a uniform format. For instance, it can convert uncompressed public keys extracted from a blockchain into the compressed format, or vice versa. It supports batch operations.
-6. I need to buy the compressed password, why not provide it for free? Because I need financial support to develop more programs, I hope everyone understands, reserves a seat, and waits for subsequent updates...
+6. Public Key Cloner The public key cloner uses addition and subtraction algorithms to achieve the purpose of shifting, adds more output methods, adds multi-threading, modifies the cloned public key, and displays it in hexadecimal when encoding.
+
+8. I need to buy the compressed password, why not provide it for free? Because I need financial support to develop more programs, I hope everyone understands, reserves a seat, and waits for subsequent updates...
 
 # Required libraries
 
@@ -411,7 +413,111 @@ Division: Iteration 117, Divisor: 2
 Matched Public Key: 03587da3f60e3ac73cb6c9af40e3c5a3dcaf37df584345bdf306c48eacf1629cf1
 ```
 **********************************************************************************************************************************************************************
-The following is an introduction to auxiliary tools.
+# The following is an introduction to auxiliary tools.
+
+1. Public Key Cloner
+
+```
+
+./p -h
+./p: invalid option -- 'h'
+Usage: ./p <public key hex> [options]
+Options:
+  -m <mode>   Output mode: p (pubkey, default), h (hash160), a (address).
+  -t <num>    Number of threads (default: 1).
+  -n <count>  Total number of operations (default: 1, must be > 0).
+  -o <file>   Write output to the specified file (default is to the console).
+  -R          Generate a random scalar. If not specified, enters incremental mode.
+  -b <bits>   Specifies a bit range for the scalar, e.g., -b 32 means [2^31, 2^32-1].
+  -r <A:B>    Specifies a hexadecimal range for the scalar, e.g., -r 100:200.
+  -v          Verbose: prints the scalar value (in hex) for each operation.
+
+Example:
+  ./p 02... -n 1000 -t 4 -m a -R   # Generate 1000 random addresses using 4 threads.
+  ./p 02... -n 100 -b 64 -v        # Incrementally generate 100 pubkeys from bit 64.
+
+pubkey Output
+
+./p 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798 -m p -n 10 -b 8 -v
+[+] bits=8 → min=2^(8-1)=80, max=2^8-1=ff
+035e95bb399a6971d376026947f89bde2f282b33810928be4ded112ac4d70e20d5 = + 0x80
+03841d6063a586fa475a724604da03bc5b92a2e0d2e0a36acfe4c73a5514742881 = - 0x80
+039dda94404337db1474e67f1d7052f398a0e70ed205c5e94d6e731b06c6f51cd8 = + 0x81
+0334ff3be4033f7a06696c3d09f7d1671cbcf55cd700535655647077456769a24e = - 0x81
+0236e4641a53948fd476c39f8a99fd974e5ec07564b5315d8bf99471bca0ef2f66 = + 0x82
+025e95bb399a6971d376026947f89bde2f282b33810928be4ded112ac4d70e20d5 = - 0x82
+028a93046d22897b40361bcd154301ff4b7ed3c170c45e44d445d2ae2ae38947d7 = + 0x83
+029dda94404337db1474e67f1d7052f398a0e70ed205c5e94d6e731b06c6f51cd8 = - 0x83
+020336581ea7bfbbb290c191a2f507a41cf5643842170e914faeab27c2c579f726 = + 0x84
+0336e4641a53948fd476c39f8a99fd974e5ec07564b5315d8bf99471bca0ef2f66 = - 0x84
+02d5f66020bdd383a875e8b46dc5a91925f17d3f1f5eeafb4e2b1f39bec59b9618 = + 0x85
+038a93046d22897b40361bcd154301ff4b7ed3c170c45e44d445d2ae2ae38947d7 = - 0x85
+028ab89816dadfd6b6a1f2634fcf00ec8403781025ed6890c4849742706bd43ede = + 0x86
+030336581ea7bfbbb290c191a2f507a41cf5643842170e914faeab27c2c579f726 = - 0x86
+03f25f6e271e231dfd5f5f8d2aaf30fc6dafe835feca1575e93f667f69d0d97018 = + 0x87
+03d5f66020bdd383a875e8b46dc5a91925f17d3f1f5eeafb4e2b1f39bec59b9618 = - 0x87
+021e33f1a746c9c5778133344d9299fcaa20b0938e8acff2544bb40284b8c5fb94 = + 0x88
+038ab89816dadfd6b6a1f2634fcf00ec8403781025ed6890c4849742706bd43ede = - 0x88
+020f1dd626b97220199541a803535b09dc6f0328bc6eda337b5ea937913ccf1095 = + 0x89
+02f25f6e271e231dfd5f5f8d2aaf30fc6dafe835feca1575e93f667f69d0d97018 = - 0x89
+0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798 = original
+
+hash160 Output
+
+./p 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798 -m h -n 10 -b 8 -v
+[+] bits=8 → min=2^(8-1)=80, max=2^8-1=ff
+c06b604888d4ae425a59472e09d69766eb50590b = + 0x80
+a116074ee9a65956a1097f72c16ef058c2c23749 = - 0x80
+d77635ee95f0abbfc84c3495d3b2e20e6047c20e = + 0x81
+443c88fa3f4cf89340222d1cdb1c57c1dfe7a867 = - 0x81
+d80025d9795e6036011bfb34c360a3eadb6aff94 = + 0x82
+dbfd58fc67dd2eddd23616045ca09a93d18177a8 = - 0x82
+214c3ce110c20aba591570bc5d88bdf662dad271 = + 0x83
+0e391e81f7daed4fae30047782fd77fd0e7be529 = - 0x83
+eb811e70d5ac1c0133b40ab30abd94c8925560bd = + 0x84
+4d31896d374d7d42b37c7ef9fc0787a630d5326c = - 0x84
+3a73684659df999ef5af53e744712574681ad934 = + 0x85
+d059f6adb60f82d95ac402be8ad6c2113f49ea08 = - 0x85
+4ffb910f6405442c6e9e453340cf11fe71f21a68 = + 0x86
+dcd8f3edee55264388b3391e53153bf28c69409b = - 0x86
+e03ef72a567c4f06135b1ccd5e907fc5cb50c066 = + 0x87
+986f07d7514bb5ca37f70e044b1fd0840588b562 = - 0x87
+e6e044d02f35b98e2b431edea54ce157b64d12c3 = + 0x88
+83c4732e6e0d6ff352ebd55d3d3c01cfffb02bed = - 0x88
+fd90d6dfd8b0c7b1cbab719a361080636ae592a8 = + 0x89
+ef2ff77e088cf52d9b83f283954fd570d1a02d63 = - 0x89
+751e76e8199196d454941c45d1b3a323f1433bd6 = original
+
+address Output
+
+./p 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798 -m a -n 10 -b 8 -v
+[+] bits=8 → min=2^(8-1)=80, max=2^8-1=ff
+1JYRNTLhwfZJxbaZAPmgx83Fm3s5rx4NeH = + 0x80
+1FgkBTPjvxcEMxqxZxcQpA58mHXvfEYv67 = - 0x80
+1LeFtfa5ix5bLVKhrKUXpdKjR2uR8CMHAL = + 0x81
+17DoU6VnNasE41xdBfnsMzcX5mpUwopHzA = - 0x81
+1Lh78i5CMfzAqVLAYbbpRaemTRrVKfALbB = + 0x82
+1M4CUupxQEByZXXjo38vZ1f3GMMdVLTRwF = - 0x82
+1434dRiv7vmnpCp1bS1VNqkoBwFBFwvqjd = + 0x83
+12JCtPvPDmyzu2bn3A8gSDMT2HHpyTtKqT = - 0x83
+1NUEURKKdidzVzyxF4deJ7jcfPG36SrZrL = + 0x84
+183ANeggdJwEW8rigQoCPTwsAaP9uSLmkW = - 0x84
+16L4SmX8B2yE1aYdaPiJYRxmg7h6VABmeJ = + 0x85
+1KzfKgTur7rarN9ci4ZmMfiZ414tNup6r4 = - 0x85
+18HukK44tGqaXmAeiBvbZdWYS9nu3yGYrw = + 0x86
+1M8jZMMXMebZoGVQDVH6zehF6vEzWesBXp = - 0x86
+1MShntZQ45F3qms9sBzZGL8UU4zfrmHdp8 = + 0x87
+1Etzihh9FhhVndsSDksBqFeyWJEoX9odtJ = - 0x87
+1N3m5bFVJKt8YotCdwcev8usn9JzRUttSo = + 0x88
+1D1iriBWcwtVzh2sMUeZMAykkmNNamjadj = - 0x88
+1Q7jU9a8LDcySbda6F7kkUPxy96qdYhmPT = + 0x89
+1NohxdwQ1y7upBteP6s5Uf3eeRvNMF8Yr9 = - 0x89
+1BgGZ9tcN4rm9KBzDn7KprQz87SZ26SAMH = original
+```
+****************************************************************************************************************************************************************
+
+2. Script to convert public key to unified mode
+
 ```
 ./pkconvert
 Usage 1: ./pkconvert <public_key_hex> [-u|-c]
@@ -424,6 +530,10 @@ Usage 2: ./pkconvert <input_file> <output_file> [-u|-c]
   -u: Output uncompressed public keys.
   -c: Output compressed public keys (default).
 ```
+****************************************************************************************************************************************************************
+
+3. generate_keys Generate a base point, which is a program script that converts a private key into a public key.
+
 ```
 ./generate_keys
 Usage: ./generate_keys <start_key_hex> <end_key_hex> -o <output_file> [-c|-u] -t <threads> [-v]
@@ -439,6 +549,10 @@ Arguments:
 Example:
   ./generate_keys 1 ffffffff -o keys.txt -c -t 8 -v
 ```
+****************************************************************************************************************************************************************
+
+4. search_script Program script that analyzes the region to see how many are divisible by 2.
+
 ```
 ./search_script -b 135 135
 [+] Analyzing numbers divisible by 2^n (1 <= n <= 135)
@@ -580,6 +694,17 @@ n=133: Found 1 results. First: 0x6000000000000000000000000000000000, Last: 0x600
 n=134: Found 1 results. First: 0x4000000000000000000000000000000000, Last: 0x4000000000000000000000000000000000, Step: 0x8000000000000000000000000000000000
 ----------------------------------------------------------------
 [+] Analysis complete.
+```
+
+****************************************************************************************************************************************************************
+
+5. extract_public This is a program for removing suffixes. It inputs a public key file with a suffix, removes the extra values in the suffix, and then outputs it.
+
+```
+./extract_public -h
+Usage: ./extract_public <input_file.txt> <output_file.txt>
+
+
 ```
 
 
