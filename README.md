@@ -55,7 +55,7 @@ or
 make
 
 ```
-Cleaning
+Clear Recompile
 ```
 make clean
 ```
