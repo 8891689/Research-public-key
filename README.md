@@ -1,3 +1,35 @@
+
+<!-- 核心功能與定位 -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Type-Advanced%20ECDLP%20Solver%20Toolkit-purple?style=for-the-badge" alt="Advanced ECDLP Solver Toolkit">
+</p>
+
+<!-- 🛡️ 核心算法 -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Algorithm-Pollard's%20Kangaroo%20(Variant)-orange" alt="Based on a variant of Pollard's Kangaroo Algorithm">
+  <img src="https://img.shields.io/badge/Technique-Displacement%20&%20Fission-blue" alt="Displacement and Fission Technique">
+</p>
+
+<!-- ⚙️ 工作流 -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Step%201-Generate%20Base%20Points%20(Tame)-blue" alt="Generate Base Points (Tame Kangaroos)">
+  <img src="https://img.shields.io/badge/Step%202-Find%20Collision%20(Wild%20Meets%20Tame)-brightgreen" alt="Find Collision">
+  <img src="https://img.shields.io/badge/Step%203-Recover%20Private%20Key-red" alt="Recover Private Key">
+</p>
+
+<!-- 技術棧與平台 -->
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-C++%20%7C%20C-blue" alt="C++ and C">
+  <img src="https://img.shields.io/badge/Dependencies-libsecp256k1%20%7C%20GMP-lightgrey" alt="Dependencies: libsecp256k1 & GMP">
+</p>
+
+<!-- 专案状态与支持 -->
+<p align="center">
+  <a href="https://github.com/8891689/Research-public-key/commits/main"><img src="https://img.shields.io/github/last-commit/8891689/Research-public-key" alt="Last Commit"></a>
+  <a href="https://github.com/8891689/Research-public-key/stargazers"><img src="https://img.shields.io/github/stars/8891689/Research-public-key?style=social" alt="GitHub Stars"></a>
+  <a href="https://github.com/8891689/Research-public-key/issues"><img src="https://img.shields.io/github/issues/8891689/Research-public-key" alt="GitHub issues"></a>
+</p>
+
 # Research-public-key
 
 Preface
@@ -707,7 +739,6 @@ Usage: ./extract_public <input_file.txt> <output_file.txt>
 
 
 ```
-
 
 # Acknowledgements
 
